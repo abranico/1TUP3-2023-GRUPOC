@@ -6,7 +6,7 @@
 - Valentino Maffeis
 - Ivan Apanowicz
 - Nicolas Abramovich
-- Ramiro Munoz
+- Ramiro Muñoz
 <hr>
 
 - Comision: 1TUP3
