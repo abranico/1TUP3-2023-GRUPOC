@@ -2,6 +2,7 @@ Proceso ventaPasajesAereos
 	Definir opcionMenu, opcionMenu4, opcionMenu5 Como Texto
 	definir opcionMenu1, plazasDsiponibles1, array Como Entero
 	definir validacion, valido Como Logico
+	validacion=Falso
 	plazasDsiponibles1=0
 	
 	Escribir "Bienvenido al sistema de venta de pasajes aéreos"
@@ -27,7 +28,7 @@ Proceso ventaPasajesAereos
 						1:
 							plazasDsiponibles1=plazasDsiponibles1+1
 							valido= validarPlaza(plazasDsiponibles1)
-							Si validacion = Verdadero Entonces
+							Si valido = Verdadero Entonces
 								escribir "Plaza disponible."
 								
 							SiNo
@@ -87,14 +88,11 @@ Proceso ventaPasajesAereos
 	
 FinProceso
 
-Funcion valido <- validarPlaza(dato)
+Funcion validacion <- validarPlaza(dato)
 	definir validacion Como Logico
 	Si dato>0 y dato<121 Entonces
-		
-		Escribir "Plaza disponible."
 		validacion=Verdadero
 	SiNo
-		Escribir "No hay plazas disponibles."
 		validacion=Falso
 	Fin Si
 	
