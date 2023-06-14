@@ -1,5 +1,8 @@
 Proceso ventaPasajesAereos
 	Definir opcionMenu, opcionMenu4, opcionMenu5 Como Texto
+	definir opcionMenu1, plazasDsiponibles1, array Como Entero
+	definir validacion, valido Como Logico
+	plazasDsiponibles1=0
 	
 	Escribir "Bienvenido al sistema de venta de pasajes aéreos"
 	
@@ -15,6 +18,31 @@ Proceso ventaPasajesAereos
 		
 		Segun opcionMenu Hacer
 			"1":
+				escribir"Las rutas aéreas disponibles a la venta son: "
+				
+				Repetir
+					Escribir "1: Buenos Aires - Bariloche. 2: Bueno Aires - Salta. 3: Rosario - Buenos Aires. 4: Mar Del Plata - Mendoza."
+					leer opcionMenu1
+					Segun opcionMenu1 Hacer
+						1:
+							plazasDsiponibles1=plazasDsiponibles1+1
+							valido= validarPlaza(plazasDsiponibles1)
+							Si validacion = Verdadero Entonces
+								escribir "Plaza disponible."
+								
+							SiNo
+								escribir "No hay plazas disponibles."
+							Fin Si
+						2:
+							escribir""
+						3:
+							escribir""
+						4:
+							escribir""
+						De Otro Modo:
+							escribir"opcion inexistente."
+					Fin Segun
+				Hasta Que opcionMenu1=1 o opcionMenu1=2 o opcionMenu1=3 o opcionMenu1=4
 				
 			"2":
 				
@@ -58,3 +86,16 @@ Proceso ventaPasajesAereos
 	Mientras Que opcionMenu <> "SALIR"
 	
 FinProceso
+
+Funcion valido <- validarPlaza(dato)
+	definir validacion Como Logico
+	Si dato>0 y dato<121 Entonces
+		
+		Escribir "Plaza disponible."
+		validacion=Verdadero
+	SiNo
+		Escribir "No hay plazas disponibles."
+		validacion=Falso
+	Fin Si
+	
+FinFuncion
