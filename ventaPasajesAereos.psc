@@ -1,9 +1,16 @@
 Proceso ventaPasajesAereos
-	Definir opcionMenu, opcionMenu4, opcionMenu5 Como Texto
-	definir opcionMenu1, plazasDsiponibles1, array Como Entero
+	Definir opcionMenu, opcionMenu4, opcionMenu5, listaVuelos Como Texto
+	definir opcionMenu1, plazasDsiponibles1, plazasDsiponibles2, plazasDsiponibles3, plazasDsiponibles4 como entero
 	definir validacion, valido Como Logico
+	Dimension listaVuelos[4,3]
+	cargaVuelos(listaVuelos)
+	
 	validacion=Falso
 	plazasDsiponibles1=0
+	plazasDsiponibles2=0
+	plazasDsiponibles3=0
+	plazasDsiponibles4=0
+	
 	
 	Escribir "Bienvenido al sistema de venta de pasajes aéreos"
 	
@@ -22,7 +29,11 @@ Proceso ventaPasajesAereos
 				escribir"Las rutas aéreas disponibles a la venta son: "
 				
 				Repetir
-					Escribir "1: Buenos Aires - Bariloche. 2: Bueno Aires - Salta. 3: Rosario - Buenos Aires. 4: Mar Del Plata - Mendoza."
+					
+					Escribir "1:", listaVuelos[0,0]
+					Escribir "2:", listaVuelos[1,0]
+					Escribir "3:", listaVuelos[2,0]
+					Escribir "4:", listaVuelos[3,0]
 					leer opcionMenu1
 					Segun opcionMenu1 Hacer
 						1:
@@ -35,11 +46,35 @@ Proceso ventaPasajesAereos
 								escribir "No hay plazas disponibles."
 							Fin Si
 						2:
-							escribir""
+							plazasDsiponibles2=plazasDsiponibles2+1
+							valido= validarPlaza(plazasDsiponibles2)
+							Si valido = Verdadero Entonces
+								escribir "Plaza disponible."
+								
+								
+							SiNo
+								escribir "No hay plazas disponibles."
+							Fin Si
 						3:
-							escribir""
+							plazasDsiponibles3=plazasDsiponibles3+1
+							valido= validarPlaza2(plazasDsiponibles3)
+							Si valido = Verdadero Entonces
+								escribir "Plaza disponible."
+								
+								
+							SiNo
+								escribir "No hay plazas disponibles."
+							Fin Si
 						4:
-							escribir""
+							plazasDsiponibles4=plazasDsiponibles4+1
+							valido= validarPlaza2(plazasDsiponibles4)
+							Si valido = Verdadero Entonces
+								escribir "Plaza disponible."
+								
+								
+							SiNo
+								escribir "No hay plazas disponibles."
+							Fin Si
 						De Otro Modo:
 							escribir"opcion inexistente."
 					Fin Segun
@@ -88,12 +123,29 @@ Proceso ventaPasajesAereos
 	
 FinProceso
 
-Funcion validacion <- validarPlaza(dato)
+SubProceso cargaVuelos(listaVuelos)
+	listaVuelos[0,0]= "Buenos Aires - Bariloche"
+	listaVuelos[1,0]= "Buenos Aires - Salta"
+	listaVuelos[2,0]= "Rosario - Buenos Aires"
+	listaVuelos[3,0]= "Mar Del Plata - Mendoza"
+FinSubProceso
+
+Funcion  validacion <- validarPlaza(dato)
 	definir validacion Como Logico
 	Si dato>0 y dato<121 Entonces
 		validacion=Verdadero
 	SiNo
 		validacion=Falso
 	Fin Si
-	
 FinFuncion
+
+Funcion validacion <- validarPlaza2(dato)
+	definir validacion Como Logico
+	Si dato>0 y dato<81 Entonces
+		validacion=Verdadero
+	SiNo
+		validacion=Falso
+	Fin Si
+FinFuncion
+
+
