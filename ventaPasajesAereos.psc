@@ -1,26 +1,28 @@
 Proceso ventaPasajesAereos
 	Definir opcionMenu, opcionMenu4, opcionMenu5, listaVuelos Como Texto
-	definir opcionMenu1, plazasDsiponibles1, plazasDsiponibles2, plazasDsiponibles3, plazasDsiponibles4 como entero
-	definir validacion, valido Como Logico
+	Definir nombrePasajero, apellidoPasajero, dniPasajero como Texto
+	definir opcionMenu1, plazasDsiponibles1, plazasDsiponibles2, plazasDsiponibles3, plazasDsiponibles4 como Entero
+	Definir  telPasajero, numPasajero, numAsiento Como Entero
+	Definir costoPasaje Como Real
+	definir validacion, valido, validarEquipaje, dniValido Como Logico
 	Dimension listaVuelos[4,3]
 	cargaVuelos(listaVuelos)
+	validacion = Falso
+	plazasDsiponibles1 = 0
+	plazasDsiponibles2 = 0
+	plazasDsiponibles3 = 0
+	plazasDsiponibles4 = 0
 	
-	validacion=Falso
-	plazasDsiponibles1=0
-	plazasDsiponibles2=0
-	plazasDsiponibles3=0
-	plazasDsiponibles4=0
 	
-	
-	Escribir "Bienvenido al sistema de venta de pasajes aéreos"
+	Escribir "Bienvenido al sistema de venta de pasajes aéreos."
 	
 	Repetir
-		Escribir "Seleccione una opcion para continuar o escriba SALIR"
-		Escribir "1. Venta pasaje"
-		Escribir "2. Buscar pasaje vendido"
-		Escribir "3. Buscar pasajero"
-		Escribir "4. Ordenar y mostrar lista pasajeros"
-		Escribir "5. Listado/s"
+		Escribir "Seleccione una opcion para continuar o escriba SALIR."
+		Escribir "1. Venta pasaje."
+		Escribir "2. Buscar pasaje vendido."
+		Escribir "3. Buscar pasajero."
+		Escribir "4. Ordenar y mostrar lista pasajeros."
+		Escribir "5. Listado/s."
 		Leer opcionMenu
 		opcionMenu = Mayusculas(opcionMenu)
 		
@@ -35,10 +37,11 @@ Proceso ventaPasajesAereos
 					Escribir "3:", listaVuelos[2,0]
 					Escribir "4:", listaVuelos[3,0]
 					leer opcionMenu1
+					
 					Segun opcionMenu1 Hacer
 						1:
-							plazasDsiponibles1=plazasDsiponibles1+1
-							valido= validarPlaza(plazasDsiponibles1)
+							plazasDsiponibles1 = plazasDsiponibles1+1
+							valido = validarPlaza(plazasDsiponibles1)
 							Si valido = Verdadero Entonces
 								escribir "Plaza disponible."
 								
@@ -46,8 +49,8 @@ Proceso ventaPasajesAereos
 								escribir "No hay plazas disponibles."
 							Fin Si
 						2:
-							plazasDsiponibles2=plazasDsiponibles2+1
-							valido= validarPlaza(plazasDsiponibles2)
+							plazasDsiponibles2 = plazasDsiponibles2+1
+							valido = validarPlaza(plazasDsiponibles2)
 							Si valido = Verdadero Entonces
 								escribir "Plaza disponible."
 								
@@ -55,30 +58,57 @@ Proceso ventaPasajesAereos
 							SiNo
 								escribir "No hay plazas disponibles."
 							Fin Si
+							
 						3:
-							plazasDsiponibles3=plazasDsiponibles3+1
-							valido= validarPlaza2(plazasDsiponibles3)
+							plazasDsiponibles3 = plazasDsiponibles3 + 1
+							valido = validarPlaza2(plazasDsiponibles3)
 							Si valido = Verdadero Entonces
 								escribir "Plaza disponible."
-								
-								
 							SiNo
 								escribir "No hay plazas disponibles."
 							Fin Si
+							
 						4:
-							plazasDsiponibles4=plazasDsiponibles4+1
-							valido= validarPlaza2(plazasDsiponibles4)
+							plazasDsiponibles4 = plazasDsiponibles4+1
+							valido = validarPlaza2(plazasDsiponibles4)
 							Si valido = Verdadero Entonces
 								escribir "Plaza disponible."
-								
-								
 							SiNo
 								escribir "No hay plazas disponibles."
 							Fin Si
+
 						De Otro Modo:
 							escribir"opcion inexistente."
 					Fin Segun
 				Hasta Que opcionMenu1=1 o opcionMenu1=2 o opcionMenu1=3 o opcionMenu1=4
+				
+				Escribir "Ingresar nombre del pasajero."
+				leer nombrePasajero
+				Escribir "Ingresar apellido del pasajero."
+				leer apellidoPasajero
+				Escribir "Ingresar telefono del pasajero."
+				leer telPasajero
+				
+				Repetir
+					Escribir "Ingresar DNI del pasajero."
+					Leer dniPasajero
+					dniValido = validarDNI(dniPasajero)
+				Hasta Que dniValido == Verdadero
+				
+				Escribir "Validar si lleva equipaje en la bodega."
+				Leer validarEquipaje
+				Escribir "Ingresar el y número pasajero frecuente."
+				Leer numPasajero
+				
+				
+				Escribir "Ruta: " ,opcionMenu1
+				Escribir "Nombre y Apellido: " ,nombrePasajero, apellidoPasajero
+				Escribir "DNI: " ,dniPasajero
+				Escribir "Teléfono: " ,telPasajero
+				Escribir "Equipaje en bodega: " ,validarEquipaje
+				Escribir "Número pasajero frecuente: " ,numPasajero
+				Escribir "Asiento: " ,numAsiento
+				Escribir "Costo pasaje: " ,costoPasaje
 				
 			"2":
 				
@@ -131,21 +161,46 @@ SubProceso cargaVuelos(listaVuelos)
 FinSubProceso
 
 Funcion  validacion <- validarPlaza(dato)
-	definir validacion Como Logico
-	Si dato>0 y dato<121 Entonces
-		validacion=Verdadero
+	Definir validacion Como Logico
+	Si dato > 0 Y dato < 121 Entonces
+		validacion = Verdadero
 	SiNo
-		validacion=Falso
+		validacion = Falso
 	Fin Si
 FinFuncion
 
 Funcion validacion <- validarPlaza2(dato)
-	definir validacion Como Logico
-	Si dato>0 y dato<81 Entonces
-		validacion=Verdadero
+	Definir validacion Como Logico
+	Si dato > 0 Y dato < 81 Entonces
+		validacion = Verdadero
 	SiNo
-		validacion=Falso
+		validacion = Falso
 	Fin Si
 FinFuncion
+
+
+Funcion dniValido <- validarDNI(dni)
+	Definir dniValido Como Logico
+	Definir contador, i Como Entero
+	
+	Si Longitud(dni) < 9 Y Longitud(dni) > 6 Entonces
+		Para i <- 1 Hasta Longitud(dni) Con Paso 1 Hacer
+			Si (Subcadena(dni, i, i)) >= "0" Y (Subcadena(dni, i, i)) <= "9" Entonces
+				contador = contador + 1
+			FinSi
+		Fin Para
+		Si contador < 9 Y contador > 6 Entonces
+			Escribir "DNI valido."
+			dniValido = Verdadero
+		SiNo
+			Escribir "DNI invalido."
+			dniValido = Falso
+		FinSi
+	SiNo
+		Escribir "DNI invalido."
+		dniValido = Falso
+	FinSi
+FinFuncion
+
 
 
