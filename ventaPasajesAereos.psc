@@ -1,11 +1,12 @@
 Proceso ventaPasajesAereos
 	Definir opcionMenu, opcionMenu4, opcionMenu5, listaVuelos Como Texto
-	Definir nombrePasajero, apellidoPasajero, dniPasajero como Texto
+	Definir nombrePasajero, apellidoPasajero, dniPasajero, resumenPasajero como Texto
 	definir opcionMenu1, plazasDsiponibles1, plazasDsiponibles2, plazasDsiponibles3, plazasDsiponibles4 como Entero
 	Definir  telPasajero, numPasajero, numAsiento Como Entero
-	Definir costoPasaje Como Real
+	definir costoPasaje, costo Como Real
 	definir validacion, valido, validarEquipaje, dniValido Como Logico
 	Dimension listaVuelos[4,3]
+	dimension resumenPasajero[]
 	cargaVuelos(listaVuelos)
 	validacion = Falso
 	plazasDsiponibles1 = 0
@@ -44,6 +45,7 @@ Proceso ventaPasajesAereos
 							valido = validarPlaza(plazasDsiponibles1)
 							Si valido = Verdadero Entonces
 								escribir "Plaza disponible."
+								costo=costoPasaje1(plazasDsiponibles1)
 								
 							SiNo
 								escribir "No hay plazas disponibles."
@@ -53,7 +55,8 @@ Proceso ventaPasajesAereos
 							valido = validarPlaza(plazasDsiponibles2)
 							Si valido = Verdadero Entonces
 								escribir "Plaza disponible."
-								
+								costo= costoPasaje2(plazasDisponibles2)
+							 
 								
 							SiNo
 								escribir "No hay plazas disponibles."
@@ -177,6 +180,30 @@ Funcion validacion <- validarPlaza2(dato)
 		validacion = Falso
 	Fin Si
 FinFuncion
+Funcion costos<- costoPasaje1(dato)
+	definir costoFinal Como Real
+	Si dato<=20 Entonces
+		costoFinal=150000
+	Fin Si
+	Si dato>20 y dato<=60 Entonces
+		costoFinal=costoFinal+(costoFinal*0.10)
+	SiNo
+		costoFinal=180.000
+	Fin Si
+	
+FinFuncion
+
+Funcion costos<- costoPasaje2(dato)
+	definir costoFinal Como Real
+	Si dato<=20 Entonces
+		costoFinal=120000
+	Fin Si
+	Si dato>20 y dato<=60 Entonces
+		costoFinal=costoFinal+(costoFinal*0.10)
+	SiNo
+		costoFinal=150000
+	Fin Si
+	
 
 
 Funcion dniValido <- validarDNI(dni)
