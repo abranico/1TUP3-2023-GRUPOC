@@ -1,18 +1,25 @@
+
 Proceso ventaPasajesAereos
 	Definir opcionMenu, opcionMenu4, opcionMenu5, listaVuelos Como Texto
-	definir opcionMenu1, plazasDsiponibles1, plazasDsiponibles2, plazasDsiponibles3, plazasDsiponibles4 como Entero
-	Definir  numPasajero, numAsiento, asiento Como Entero
+	definir eleccionVuelo, plazasDsiponibles1, plazasDsiponibles2, plazasDsiponibles3, plazasDsiponibles4, i, j, plazasTotales como Entero
+	
+	Definir  numPasajero, numAsiento Como Entero
 	definir costoPasaje, costo Como Real
 	Definir validacion, valido, validarEquipaje, dniValido, telValido Como Logico
+	
 	Dimension listaVuelos[4,3]
-	dimension resumenPasajero[8,2]
 	cargaVuelos(listaVuelos)
+	
+	Definir listaPasajeros como Texto
+	Dimension listaPasajeros[120,8]
+
+	
 	validacion = Falso
+	plazasTotales = 0
 	plazasDsiponibles1 = 0
 	plazasDsiponibles2 = 0
 	plazasDsiponibles3 = 0
 	plazasDsiponibles4 = 0
-	asiento=0
 	
 	Escribir "Bienvenido al sistema de venta de pasajes aéreos."
 	
@@ -31,67 +38,71 @@ Proceso ventaPasajesAereos
 				Escribir "Las rutas aéreas disponibles a la venta son: "
 				
 				Repetir
-					Escribir "1: ", listaVuelos[0,0]
-					Escribir "2: ", listaVuelos[1,0]
-					Escribir "3: ", listaVuelos[2,0]
-					Escribir "4: ", listaVuelos[3,0]
-					Leer opcionMenu1
+					Escribir "1. ", listaVuelos[0,0]
+					Escribir "2. ", listaVuelos[1,0]
+					Escribir "3. ", listaVuelos[2,0]
+					Escribir "4. ", listaVuelos[3,0]
+					Leer eleccionVuelo
 					
-					Segun opcionMenu1 Hacer
+					Segun eleccionVuelo Hacer
 						1:
+							plazasTotales = plazasTotales + 1
 							plazasDsiponibles1 = plazasDsiponibles1+1
-							asiento=asiento+1
 							valido = validarPlaza(plazasDsiponibles1, listaVuelos[0,1])
 							Si valido = Verdadero Entonces
 								escribir "Plaza disponible."
-								costo=costoPasaje1(plazasDsiponibles1, listaVuelos[0,2], opcionMenu1)
-								cargarPasajeros(listaVuelos[0,0], costo, asiento)
-								
-								
+								costo=costoPasaje1(plazasDsiponibles1, listaVuelos[0,2], eleccionVuelo)
+								cargarPasajeros(listaVuelos[0,0], costo, plazasDsiponibles1, listaPasajeros, plazasTotales)
 							SiNo
 								Escribir "No hay plazas disponibles."
 							Fin Si
 						2:
+							plazasTotales = plazasTotales + 1
 							plazasDsiponibles2 = plazasDsiponibles2+1
-							asiento=asiento+1
 							valido = validarPlaza(plazasDsiponibles2, listaVuelos[1,1])
 						 Si valido = Verdadero Entonces
 								escribir "Plaza disponible."
-								costo=costoPasaje1(plazasDsiponibles2, listaVuelos[1,2], opcionMenu1)
-							 
+								costo=costoPasaje1(plazasDsiponibles2, listaVuelos[1,2], eleccionVuelo)
+								cargarPasajeros(listaVuelos[1,0], costo, plazasDsiponibles2, listaPasajeros, plazasTotales)
 							SiNo
 								Escribir "No hay plazas disponibles."
 							Fin Si
-							
 						3:
+							plazasTotales = plazasTotales + 1
 							plazasDsiponibles3 = plazasDsiponibles3 + 1
-							asiento=asiento+1
 							valido = validarPlaza(plazasDsiponibles3, listaVuelos[2,1])
 							Si valido = Verdadero Entonces
 								Escribir "Plaza disponible."
-								costo=costoPasaje1(plazasDsiponibles3, listaVuelos[2,2], opcionMenu1)
+								costo=costoPasaje1(plazasDsiponibles3, listaVuelos[2,2], eleccionVuelo)
+								cargarPasajeros(listaVuelos[2,0], costo, plazasDsiponibles3, listaPasajeros, plazasTotales)
 							SiNo
 								Escribir "No hay plazas disponibles."
 							Fin Si
-							
 						4:
+							plazasTotales = plazasTotales + 1
 							plazasDsiponibles4 = plazasDsiponibles4+1
-							asiento=asiento+1
 							valido = validarPlaza(plazasDsiponibles4, listaVuelos[3,1])
 							Si valido = Verdadero Entonces
 								Escribir "Plaza disponible."
-								costo=costoPasaje1(plazasDsiponibles4, listaVuelos[3,2], opcionMenu1)
+								costo=costoPasaje1(plazasDsiponibles4, listaVuelos[3,2], eleccionVuelo)
+								cargarPasajeros(listaVuelos[3,0], costo, plazasDsiponibles4, listaPasajeros, plazasTotales)
 							SiNo
 								Escribir "No hay plazas disponibles."
 							Fin Si
 						De Otro Modo:
 							Escribir "Opción inexistente."
 					Fin Segun
-				Hasta Que opcionMenu1 = 1 O opcionMenu1 = 2 O opcionMenu1 = 3 O opcionMenu1 = 4
+				Hasta Que eleccionVuelo = 1 O eleccionVuelo = 2 O eleccionVuelo = 3 O eleccionVuelo = 4
 			 
 				
 			"2":
-				
+				// PARA PROBAR Y VER COMO QUEDA LA LISTA (DESPUES HAY QUE CAMBIARLO)
+				Para i=0 Hasta plazasTotales-1 Con Paso 1 Hacer
+					Para j=0 Hasta 7 Con Paso 1 Hacer
+						Escribir Sin Saltar listaPasajeros[i, j], " | "
+					Fin Para
+					Escribir " "
+				Fin Para
 			"3":
 				
 			"4":
@@ -148,46 +159,45 @@ SubProceso cargaVuelos(listaVuelos)
 	listaVuelos[3,2]="95000"
 FinSubProceso
 
-SubProceso listaPasajeros(resumenPasajero, vuelo, nombrePasajero, apellidoPasajero, dniPasajero, telPasajeros, validarEquipaje, numPasajero, asiento,costoFinal)
-	definir nombreYapellido como texto
-	 nombreYapellido=nombrePasajero, " " , apellidoPasajero
-	resumenPasajero[0,0]="Ruta: "
-	resumenPasajero[0,1]= vuelo
-	resumenPasajero[1,0]="Nombre y Apellido: "
-	resumenPasajero[1,1]=nombreYapellido
-	resumenPasajero[2,0]="Dni: "
-	resumenPasajero[2,1]= dniPasajero
-	resumenPasajero[3,0]="Teléfono: "
-	resumenPasajero[3,1]= telPasajeros
-	resumenPasajero[4,0]="Equipaje en bodega: "
-	resumenPasajero[4,1]= validarEquipaje
-	resumenPasajero[5,0]="Numero pasajero frecuente: "
-	resumenPasajero[5,1]=numPasajero
-	resumenPasajero[6,0]="Asiento: "
-	resumenPasajero[6,1]=asiento
-	resumenPasajero[7,0]="Costo final Pasaje: "
-	resumenPasajero[7,1]=costoFinal
+SubProceso cargarlistaPasajeros(vuelo, nombrePasajero, apellidoPasajero, dniPasajero, telPasajeros, validarEquipaje, numPasajero, asiento, costoFinal, lista, plazasTotales)
+	Definir listaPasajeros como Texto
+	Dimension listaPasajeros[120,8]
+	
+	Definir nombreYApellido como texto
+	nombreYApellido = Concatenar(nombrePasajero," ")
+	nombreYApellido = Concatenar(nombreYApellido, apellidoPasajero)
 	
 	
+
 	
-	
+	lista[plazasTotales-1,0]= vuelo
+	lista[plazasTotales-1,1]=nombreYApellido
+	lista[plazasTotales-1,2]= dniPasajero
+	lista[plazasTotales-1,3]= telPasajeros
+	lista[plazasTotales-1,4]= validarEquipaje
+	lista[plazasTotales-1,5]=numPasajero
+	lista[plazasTotales-1,6]=asiento
+	lista[plazasTotales-1,7]=costoFinal
 FinSubProceso
 
-SubProceso cargarPasajeros(vuelo, costo, asiento)
+SubProceso cargarPasajeros(vuelo, costo, plazaNro, lista, plazasTotales)
 	
 	Definir nombrePasajero, apellidoPasajero, dniPasajero, telPasajero, resumenPasajero  Como Texto
-	definir nroPasajeroFrecuente, asiento Como texto
+	definir nroPasajeroFrecuente Como texto
 	definir costoFinal como real
-	definir validarEquipaje Como Logico
-	definir asiento Como Entero
+	Definir costoPasajero, validarEquipaje, numPasajero, asiento como Texto
+	definir telValido, dniValido Como Logico
 	costoFinal=costo
+	asiento = ConvertirATexto(plazaNro)
 	
 	Escribir "Ingresar nombre del pasajero."
 	Leer nombrePasajero
+	
 	Escribir "Ingresar apellido del pasajero."
-	Leer apellidoPasajero	
+	Leer apellidoPasajero
+	
 	Repetir
-		Escribir "Ingresar teléfono del pasajero."
+		Escribir "Ingresar teléfono del pasajero. (indicar codigo de area)"
 		Leer telPasajero
 		telValido = validarTel(telPasajero)
 	Hasta Que telValido == Verdadero
@@ -198,19 +208,25 @@ SubProceso cargarPasajeros(vuelo, costo, asiento)
 		dniValido = validarDNI(dniPasajero)
 	Hasta Que dniValido == Verdadero
 	
-	Escribir "Validar si lleva equipaje en la bodega. (verdadero (V) o falso (F))"
-	Leer validarEquipaje
-	Si validarEquipaje==Verdadero Entonces
-		costoFinal=costoFinal*1.5
-	Fin Si
+	
 	Repetir
-		Escribir "Ingresar el y número pasajero frecuente."
+		Escribir "Validar si lleva equipaje en la bodega. [V/F]"
+		Leer validarEquipaje
+		validarEquipaje = Mayusculas(validarEquipaje)
+		Si validarEquipaje == "V" Entonces
+			costoFinal=costoFinal*1.5
+		Fin Si
+	Mientras Que validarEquipaje <> "F" Y validarEquipaje <> "V"
+	
+	Repetir
+		Escribir "Ingresar el y número pasajero frecuente. (4 digitos)"
 		Leer numPasajero
-	Mientras Que Longitud(numPasajero)=4
+	Mientras Que Longitud(numPasajero)<>4
+	
 	Escribir "El numero de asiento es: ", asiento
 	Escribir "El costo final es de: ", costoFinal
-	costoFinal=ConvertirATexto(costoFinal)
-	listaPasajeros(vuelo, opcionMenu1, nombrePasajero, apellidoPasajero, dniPasajero, telPasajeros, validarEquipaje, numPasajero, asiento,costoFinal)
+	costoPasajero=ConvertirATexto(costoFinal)
+	cargarListaPasajeros(vuelo, nombrePasajero, apellidoPasajero, dniPasajero, telPasajero, validarEquipaje, numPasajero, asiento, costoPasajero, lista, plazasTotales)
 	
 FinSubProceso
 
@@ -226,44 +242,41 @@ Funcion validacion <- validarPlaza(dato, vuelo)
 	Fin Si
 FinFuncion
 
-Funcion costos<- costoPasaje1(dato, precio, menu)
+Funcion costoFinal <- costoPasaje1(dato, precio, menu)
 	definir costoFinal Como Real
+	costoFinal = ConvertirANumero(precio)
 	Segun menu Hacer
 		1:
-			Si dato<=20 Entonces
-				costoFinal=ConvertirANumero(precio)
-			Fin Si
 			Si dato>20 y dato<=60 Entonces
 				costoFinal=costoFinal+(costoFinal*0.10)
 			SiNo
-				costoFinal=180000
+				Si dato > 60 Entonces
+					costoFinal=180000
+				Fin Si
 			Fin Si
 		2:
-			Si dato<=20 Entonces
-				costoFinal=ConvertirANumero(precio)
-			Fin Si
 			Si dato>20 y dato<=60 Entonces
 				costoFinal=costoFinal+(costoFinal*0.10)
 			SiNo
-				costoFinal=150000
+				Si dato > 60 Entonces
+					costoFinal=150000
+				Fin Si
 			Fin Si
 		3:
-			Si dato<=10 Entonces
-				costoFinal=ConvertirANumero(precio)
-			Fin Si
 			Si dato>10 y dato<=40 Entonces
 				costoFinal=costoFinal+(costoFinal*0.15)
 			SiNo
-				costoFinal=95000
+				Si dato > 40 Entonces
+					costoFinal=95000
+				Fin Si
 			Fin Si
 		4:
-			Si dato<=10 Entonces
-				costoFinal=ConvertirANumero(precio)
-			Fin Si
 			Si dato>10 y dato<=40 Entonces
 				costoFinal=costoFinal+(costoFinal*0.15)
 			SiNo
-				costoFinal=125000
+				Si dato > 40 Entonces
+					costoFinal=125000
+				Fin Si
 			Fin Si
 	Fin Segun
 	
@@ -272,9 +285,11 @@ FinFuncion
 Funcion telValido <- validarTel(tel)
 	Definir telValido Como Logico
 	Definir contador, i Como Entero
+	Definir prefijo como Texto
+	prefijo = Subcadena(tel, 0, 0)
 	contador = 0
 	
-	Si Longitud(tel) = 13 Entonces
+	Si Longitud(tel) >= 10 Y prefijo == "+" Entonces
 		Para i <- 1 Hasta Longitud(tel) Con Paso 1 Hacer
 			Si (Subcadena(tel, i, i)) >= "0" Y (Subcadena(tel, i, i)) <= "9" Entonces
 				contador = contador + 1
