@@ -3,7 +3,7 @@ Proceso ventaPasajesAereos
 	definir eleccionVuelo, plazasDsiponibles1, plazasDsiponibles2, plazasDsiponibles3, plazasDsiponibles4, i, j, plazasTotales como Entero
 	
 	Definir  numPasajero, numAsiento Como Entero
-	definir costoPasaje, costo Como Real
+	definir costoPasaje, costo, porcentajeVentasRuta1, porcentajeVentasRuta2, porcentajeVentasRuta3, porcentajeVentasRuta4 Como Real
 	Definir validacion, valido, validarEquipaje, dniValido, telValido Como Logico
 	
 	// ----- Rutas aéreas disponibles a la venta -----
@@ -92,6 +92,7 @@ Proceso ventaPasajesAereos
 							plazasDsiponibles4 = plazasDsiponibles4+1
 							valido = validarPlaza(plazasDsiponibles4, listaVuelos[3,1]) // Sumamos la plaza y la validamos
 							
+							
 							Si valido = Verdadero Entonces
 								Escribir "Plaza disponible."
 								costo=costoPasaje1(plazasDsiponibles4, listaVuelos[3,2], eleccionVuelo) // Generamos el costo del pasaje
@@ -167,9 +168,22 @@ Proceso ventaPasajesAereos
 					Leer opcionMenu5
 					opcionMenu5 = Mayusculas(opcionMenu5)
 					Segun opcionMenu5 Hacer
-						"A":
-							
+						"A": 
+							Escribir "Cantidad de pasajes vendido en ruta 1:  " ,  plazasDsiponibles1
+							Escribir "Cantidad de pasajes vendido en ruta 2:  " ,  plazasDsiponibles2
+							Escribir "Cantidad de pasajes vendido en ruta 3:  " ,  plazasDsiponibles3
+							Escribir "Cantidad de pasajes vendido en ruta 4:  " ,  plazasDsiponibles4
 						"B":
+							porcentajeVentasRuta1 = (plazasDsiponibles1/120) * 100;
+							Escribir "El porcentaje de ventas de la ruta 1 es: " , porcentajeVentasRuta1 "%"
+							porcentajeVentasRuta2 = (plazasDsiponibles2/120) * 100;
+							Escribir "El porcentaje de ventas de la ruta 2 es: " , porcentajeVentasRuta2 "%"
+							porcentajeVentasRuta3 = (plazasDsiponibles3/80) * 100;
+							Escribir "El porcentaje de ventas de la ruta 3 es: " , porcentajeVentasRuta3 "%"
+							porcentajeVentasRuta4 = (plazasDsiponibles4/80) * 100;
+							Escribir "El porcentaje de ventas de la ruta 4 es: " , porcentajeVentasRuta4 "%"
+							
+							
 							
 						De Otro Modo:
 							Escribir "Opción inválida."
