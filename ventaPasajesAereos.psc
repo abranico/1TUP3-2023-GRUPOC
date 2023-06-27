@@ -369,7 +369,7 @@ Funcion telValido <- validarTel(tel)
 	
 	Si Longitud(tel) >= 10 Y prefijo == "+" Entonces
 		Para i <- 1 Hasta Longitud(tel) Con Paso 1 Hacer
-			Si (Subcadena(tel, i, i)) >= "0" Y (Subcadena(tel, i, i)) <= "9" Entonces
+			Si Subcadena(tel, i, i) = "0" O Subcadena(tel, i, i) = "1" O Subcadena(tel, i, i) = "2" O Subcadena(tel, i, i) = "3" O Subcadena(tel, i, i) = "4" O Subcadena(tel, i, i) = "5" O Subcadena(tel, i, i) = "6" O Subcadena(tel, i, i) = "7" O Subcadena(tel, i, i) = "8" O Subcadena(tel, i, i) = "9" Entonces
 				contador = contador + 1
 			FinSi
 		Fin Para
@@ -394,7 +394,7 @@ Funcion dniValido <- validarDNI(dni)
 	
 	Si Longitud(dni) < 9 Y Longitud(dni) > 6 Entonces
 		Para i <- 1 Hasta Longitud(dni) Con Paso 1 Hacer
-			Si (Subcadena(dni, i, i)) >= "0" Y (Subcadena(dni, i, i)) <= "9" Entonces
+			Si Subcadena(dni, i, i) = "0" O Subcadena(dni, i, i) = "1" O Subcadena(dni, i, i) = "2" O Subcadena(dni, i, i) = "3" O Subcadena(dni, i, i) = "4" O Subcadena(dni, i, i) = "5" O Subcadena(dni, i, i) = "6" O Subcadena(dni, i, i) = "7" O Subcadena(dni, i, i) = "8" O Subcadena(dni, i, i) = "9" Entonces
 				contador = contador + 1
 			FinSi
 		Fin Para
