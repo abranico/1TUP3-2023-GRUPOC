@@ -1,9 +1,8 @@
 Proceso ventaPasajesAereos
-	Definir opcionMenu, opcionMenu4, opcionMenu5 Como Texto
-	definir eleccionVuelo, plazasDsiponibles1, plazasDsiponibles2, plazasDsiponibles3, plazasDsiponibles4, i, j, plazasTotales como Entero
-	
+	Definir opcionMenu, opcionMenu4, opcionMenu5, nombreBusqueda, apellidoBusqueda, nombreYApellidoBusqueda Como Texto
+	Definir eleccionVuelo, plazasDsiponibles1, plazasDsiponibles2, plazasDsiponibles3, plazasDsiponibles4, i, j, plazasTotales Como Entero
 	Definir  numPasajero, numAsiento Como Entero
-	definir costoPasaje, costo Como Real
+	Definir costoPasaje, costo Como Real
 	Definir validacion, valido, validarEquipaje, dniValido, telValido Como Logico
 	
 	// ----- Rutas aéreas disponibles a la venta -----
@@ -138,13 +137,15 @@ Proceso ventaPasajesAereos
 				
 				// ----- FIN BUSCAR PASAJE VENDIDO -----
 			"3":
-				// PARA PROBAR Y VER COMO QUEDA LA LISTA (DESPUES HAY QUE CAMBIARLO)
-				Para i=0 Hasta plazasTotales-1 Con Paso 1 Hacer
-					Para j=0 Hasta 7 Con Paso 1 Hacer
-						Escribir Sin Saltar listaPasajeros[i, j], " | "
-					Fin Para
-					Escribir " "
-				Fin Para
+				Escribir "Ingresar el nombre del pasajero que desea buscar: "
+				Leer nombreBusqueda
+				Escribir "Ingrese el apellido del pasajero: "
+				Leer apellidoBusqueda
+				nombreYApellidoBusqueda = Concatenar(nombreBusqueda," ")
+				nombreYApellidoBusqueda = Concatenar(nombreYapellidoBusqueda, apellidoBusqueda)
+				buscarPasajeroNombre(listaPasajeros, plazasTotales, nombreYApellidoBusqueda)
+		
+				
 			"4":
 				Repetir
 					Escribir "a. Por número de asiento Ascendente."
@@ -207,10 +208,10 @@ FinSubProceso
 SubProceso cargarPasajeros(vuelo, costo, plazaNro, lista, plazasTotales)
 	
 	Definir nombrePasajero, apellidoPasajero, nombreYApellido, dniPasajero, telPasajero, resumenPasajero  Como Texto
-	definir nroPasajeroFrecuente Como texto
-	definir costoFinal como real
+	Definir nroPasajeroFrecuente Como Texto
+	Definir costoFinal Como Real
 	Definir costoPasajero, validarEquipaje, numPasajero, asiento como Texto
-	definir telValido, dniValido Como Logico
+	Definir telValido, dniValido Como Logico
 	costoFinal=costo
 	
 	// ----- Carga de NOMBRE y APELLIDO -----
@@ -242,7 +243,7 @@ SubProceso cargarPasajeros(vuelo, costo, plazaNro, lista, plazasTotales)
 		validarEquipaje = Mayusculas(validarEquipaje)
 	Mientras Que validarEquipaje <> "F" Y validarEquipaje <> "V"
 	Si validarEquipaje == "V" Entonces
-		costoFinal=costoFinal*1.5 // Costo adicional por equipaje en la bodega
+		costoFinal = costoFinal * 1.5 // Costo adicional por equipaje en la bodega
 		validarEquipaje = "Verdadero"
 	SiNo
 		validarEquipaje = "Falso"
@@ -294,43 +295,44 @@ FinFuncion
 
 // ----- GENERAR COSTO DE LA VENTA -----
 Funcion costoFinal <- costoPasaje1(dato, precio, menu)
-	definir costoFinal Como Real
+	Definir costoFinal Como Real
 	costoFinal = ConvertirANumero(precio)
 	Segun menu Hacer
 		1:
-			Si dato>20 y dato<=60 Entonces
-				costoFinal=costoFinal+(costoFinal*0.10)
+			Si dato > 20 Y dato <= 60 Entonces
+				costoFinal = costoFinal + (costoFinal * 0.10)
 			SiNo
 				Si dato > 60 Entonces
-					costoFinal=180000
+					costoFinal = 180000
 				Fin Si
 			Fin Si
 		2:
-			Si dato>20 y dato<=60 Entonces
-				costoFinal=costoFinal+(costoFinal*0.10)
+			Si dato > 20 Y dato <= 60 Entonces
+				costoFinal = costoFinal + (costoFinal * 0.10)
 			SiNo
 				Si dato > 60 Entonces
-					costoFinal=150000
+					costoFinal = 150000
 				Fin Si
 			Fin Si
 		3:
-			Si dato>10 y dato<=40 Entonces
-				costoFinal=costoFinal+(costoFinal*0.15)
+			Si dato > 10 Y dato <= 40 Entonces
+				costoFinal = costoFinal + (costoFinal * 0.15)
 			SiNo
 				Si dato > 40 Entonces
-					costoFinal=95000
+					costoFinal = 95000
 				Fin Si
 			Fin Si
 		4:
-			Si dato>10 y dato<=40 Entonces
-				costoFinal=costoFinal+(costoFinal*0.15)
+			Si dato > 10 Y dato <= 40 Entonces
+				costoFinal = costoFinal + (costoFinal * 0.15)
 			SiNo
 				Si dato > 40 Entonces
-					costoFinal=125000
+					costoFinal = 125000
 				Fin Si
 			Fin Si
 	Fin Segun
 FinFuncion
+
 
 // ----- VALIDAR TELÉFONO -----
 Funcion telValido <- validarTel(tel)
@@ -359,6 +361,7 @@ Funcion telValido <- validarTel(tel)
 	FinSi
 FinFuncion
 
+
 // ----- VALIDAR DNI -----
 Funcion dniValido <- validarDNI(dni)
 	Definir dniValido Como Logico
@@ -383,13 +386,12 @@ Funcion dniValido <- validarDNI(dni)
 	FinSi
 FinFuncion
 
+
 SubProceso buscarPasajeroAsiento(listaPasajeros, ruta, plazasTotales, plazasDisponibles)
 	Definir asiento, i, j Como Entero
 	Definir encontrado como Logico 
 	Definir array como Texto
 	encontrado = Falso
-	
-	
 	// Creacion de un nuevo array para guardar los datos del vuelo a buscar
 	
 	Si plazasDisponibles <= 0 Entonces
@@ -434,8 +436,8 @@ SubProceso buscarPasajeroAsiento(listaPasajeros, ruta, plazasTotales, plazasDisp
 		// Busqueda
 		Escribir "Ingrese el asiento del pasajero a buscar:"
 		Leer asiento
-		
 		i=0
+		
 		Mientras i < plazasDisponibles Hacer
 			Si array[i,6] == ConvertirATexto(asiento) Entonces
 				Escribir "Nombre y Apellido: ", array[i,1]
@@ -450,7 +452,28 @@ SubProceso buscarPasajeroAsiento(listaPasajeros, ruta, plazasTotales, plazasDisp
 		Si encontrado = Falso Entonces
 			Escribir "Asiento no encontrado."
 		Fin Si
-		
+	Fin Si
+FinSubProceso
+
+
+SubProceso buscarPasajeroNombre(lista, plazasTotales, nombreYApellido)
+	Definir i Como Entero
+	Definir encontrado como Logico 
+	encontrado = Falso
+	i=0
+	
+	Mientras i < plazasTotales Hacer
+		Si Mayusculas(nombreYapellido) == Mayusculas(lista[i,1]) Entonces
+			Escribir "Nombre y Apellido: ", lista[i,1]
+			Escribir "Ruta: ", lista[i,0]
+			Escribir "DNI: ", lista[i,2]
+			encontrado = Verdadero
+			i = plazasTotales
+		Fin Si
+		i = i + 1
+	FinMientras
+	Si encontrado = Falso Entonces
+		Escribir "Persona no encontrada."
 	Fin Si
 	
 FinSubProceso
