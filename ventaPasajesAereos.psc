@@ -1,9 +1,12 @@
 Proceso ventaPasajesAereos
-	Definir opcionMenu, opcionMenu4, opcionMenu5 Como Texto
-	definir eleccionVuelo, plazasDsiponibles1, plazasDsiponibles2, plazasDsiponibles3, plazasDsiponibles4, i, j, plazasTotales como Entero
-	
+	Definir opcionMenu, opcionMenu4, opcionMenu5, nombreBusqueda, apellidoBusqueda, nombreYApellidoBusqueda Como Texto
+	Definir eleccionVuelo, plazasDsiponibles1, plazasDsiponibles2, plazasDsiponibles3, plazasDsiponibles4, i, j, plazasTotales Como Entero
 	Definir  numPasajero, numAsiento Como Entero
+<<<<<<< HEAD
 	definir costoPasaje, costo, porcentajeVentasRuta1, porcentajeVentasRuta2, porcentajeVentasRuta3, porcentajeVentasRuta4 Como Real
+=======
+	Definir costoPasaje, costo Como Real
+>>>>>>> abbe31eea7d1483fee8f234febede842bc04662f
 	Definir validacion, valido, validarEquipaje, dniValido, telValido Como Logico
 	
 	// ----- Rutas aéreas disponibles a la venta -----
@@ -25,21 +28,24 @@ Proceso ventaPasajesAereos
 	
 	
 	// ----- MENU -----
+	
 	Escribir "Bienvenido al sistema de venta de pasajes aéreos."
 	Repetir
+		Escribir ""
+		Escribir "Seleccione una opción para continuar o escriba SALIR."
 		Escribir "1. Venta pasaje."
 		Escribir "2. Buscar pasaje vendido."
 		Escribir "3. Buscar pasajero."
 		Escribir "4. Ordenar y mostrar lista pasajeros."
 		Escribir "5. Listado/s."
-		Escribir "Seleccione una opción para continuar o escriba SALIR."
 		Leer opcionMenu
+		Escribir ""	
 		opcionMenu = Mayusculas(opcionMenu)
 		
 		Segun opcionMenu Hacer
 			"1":
 				// ----- VENTA DE PASAJE -----
-				Escribir "Las rutas aéreas disponibles a la venta son: "
+				Escribir "Ingrese la ruta aerea: "
 				Repetir
 					Escribir "1. ", listaVuelos[0,0] // Buenos Aires - Bariloche
 					Escribir "2. ", listaVuelos[1,0] // Buenos Aires - Salta
@@ -106,15 +112,14 @@ Proceso ventaPasajesAereos
 					Fin Segun
 				Hasta Que eleccionVuelo = 1 O eleccionVuelo = 2 O eleccionVuelo = 3 O eleccionVuelo = 4
 				// ----- FIN VENTA DE PASAJE -----
-				
 			"2":
-				// ----- BUSCAR PASAJE VENDIDO -----
+				// ----- BUSCAR PASAJE VENDIDO POR ASIENTO -----
 				Repetir
+					Escribir "Ingrese el vuelo en el que desea buscar:"
 					Escribir "1. ", listaVuelos[0,0] // Buenos Aires - Bariloche
 					Escribir "2. ", listaVuelos[1,0] // Buenos Aires - Salta
 					Escribir "3. ", listaVuelos[2,0] // Rosario - Buenos Aires
 					Escribir "4. ", listaVuelos[3,0] // Mar Del Plata - Mendoza
-					Escribir "Ingrese el vuelo en el que desea buscar:"
 					Leer eleccionVuelo
 					Segun eleccionVuelo Hacer
 						1:
@@ -134,33 +139,57 @@ Proceso ventaPasajesAereos
 							Escribir "Opción inexistente."
 					Fin Segun
 				Hasta Que eleccionVuelo = 1 O eleccionVuelo = 2 O eleccionVuelo = 3 O eleccionVuelo = 4
-				
-				
-				
-				// ----- FIN BUSCAR PASAJE VENDIDO -----
+				// ----- FIN BUSCAR PASAJE VENDIDO POR ASIENTO -----
 			"3":
-				// PARA PROBAR Y VER COMO QUEDA LA LISTA (DESPUES HAY QUE CAMBIARLO)
-				Para i=0 Hasta plazasTotales-1 Con Paso 1 Hacer
-					Para j=0 Hasta 7 Con Paso 1 Hacer
-						Escribir Sin Saltar listaPasajeros[i, j], " | "
-					Fin Para
-					Escribir " "
-				Fin Para
+				// ----- BUSCAR PASAJE VENDIDO POR NOMBRE Y APELLIDO -----
+				Escribir "Ingresar el nombre del pasajero que desea buscar: "
+				Leer nombreBusqueda
+				Escribir "Ingrese el apellido del pasajero: "
+				Leer apellidoBusqueda
+				nombreYApellidoBusqueda = Concatenar(nombreBusqueda," ")
+				nombreYApellidoBusqueda = Concatenar(nombreYapellidoBusqueda, apellidoBusqueda)
+				buscarPasajeroNombre(listaPasajeros, plazasTotales, nombreYApellidoBusqueda)
+				// ----- FIN BUSCAR PASAJE VENDIDO POR NOMBRE Y APELLIDO -----
 			"4":
+				// ----- ORDENAR PASAJE POR ASIENTO -----
 				Repetir
 					Escribir "a. Por número de asiento Ascendente."
 					Escribir "b. Por número de asiento Descendente."
 					Leer opcionMenu4
 					opcionMenu4 = Mayusculas(opcionMenu4)
-					Segun opcionMenu4 Hacer
-						"A":
-							
-						"B":
-							
-						De Otro Modo:
-							Escribir "Opción inválida."
-					Fin Segun
+					Si opcionMenu4 <> "A" Y opcionMenu4 <> "B" Entonces
+						Escribir "Opcion invalida"
+					Fin Si
 				Mientras Que opcionMenu4 <> "A" Y opcionMenu4 <> "B"
+				
+				Repetir
+					Escribir "Ingrese el vuelo que desea ordenar:"
+						Escribir "1. ", listaVuelos[0,0] // Buenos Aires - Bariloche
+						Escribir "2. ", listaVuelos[1,0] // Buenos Aires - Salta
+						Escribir "3. ", listaVuelos[2,0] // Rosario - Buenos Aires
+						Escribir "4. ", listaVuelos[3,0] // Mar Del Plata - Mendoza
+						
+						Leer eleccionVuelo
+						Segun eleccionVuelo Hacer
+							1:
+								// Ordenar Buenos Aires - Bariloche
+								ordenarPorAsiento(listaPasajeros, eleccionVuelo, plazasTotales, plazasDsiponibles1, opcionMenu4)
+							2:
+								// Ordenar Buenos Aires - Salta
+								ordenarPorAsiento(listaPasajeros, eleccionVuelo, plazasTotales, plazasDsiponibles2, opcionMenu4)
+							3:
+								// Brdenar Rosario - Buenos Aires
+								ordenarPorAsiento(listaPasajeros, eleccionVuelo, plazasTotales, plazasDsiponibles3, opcionMenu4)
+							4:
+								// Ordenar Mar Del Plata - Mendoza
+								ordenarPorAsiento(listaPasajeros, eleccionVuelo, plazasTotales, plazasDsiponibles4, opcionMenu4)
+								
+							De Otro Modo:
+								Escribir "Opción inexistente."
+						Fin Segun
+					Hasta Que eleccionVuelo = 1 O eleccionVuelo = 2 O eleccionVuelo = 3 O eleccionVuelo = 4
+				
+				// ----- FIN ORDENAR PASAJE POR ASIENTO -----
 			"5":
 				Repetir
 					Escribir "a. Cantidad de pasajes vendido por ruta aérea."
@@ -221,10 +250,10 @@ FinSubProceso
 SubProceso cargarPasajeros(vuelo, costo, plazaNro, lista, plazasTotales)
 	
 	Definir nombrePasajero, apellidoPasajero, nombreYApellido, dniPasajero, telPasajero, resumenPasajero  Como Texto
-	definir nroPasajeroFrecuente Como texto
-	definir costoFinal como real
+	Definir nroPasajeroFrecuente Como Texto
+	Definir costoFinal Como Real
 	Definir costoPasajero, validarEquipaje, numPasajero, asiento como Texto
-	definir telValido, dniValido Como Logico
+	Definir telValido, dniValido Como Logico
 	costoFinal=costo
 	
 	// ----- Carga de NOMBRE y APELLIDO -----
@@ -256,7 +285,7 @@ SubProceso cargarPasajeros(vuelo, costo, plazaNro, lista, plazasTotales)
 		validarEquipaje = Mayusculas(validarEquipaje)
 	Mientras Que validarEquipaje <> "F" Y validarEquipaje <> "V"
 	Si validarEquipaje == "V" Entonces
-		costoFinal=costoFinal*1.5 // Costo adicional por equipaje en la bodega
+		costoFinal = costoFinal * 1.5 // Costo adicional por equipaje en la bodega
 		validarEquipaje = "Verdadero"
 	SiNo
 		validarEquipaje = "Falso"
@@ -284,6 +313,7 @@ SubProceso cargarPasajeros(vuelo, costo, plazaNro, lista, plazasTotales)
 	lista[plazasTotales-1,7] = costoPasajero
 	
 	// ----- RESUMEN -----
+	Escribir ""
 	Escribir "========== RESUMEN =========="
 	Escribir "Ruta: ", vuelo
 	Escribir "Nombre y Apellido: ", nombreYApellido
@@ -308,43 +338,44 @@ FinFuncion
 
 // ----- GENERAR COSTO DE LA VENTA -----
 Funcion costoFinal <- costoPasaje1(dato, precio, menu)
-	definir costoFinal Como Real
+	Definir costoFinal Como Real
 	costoFinal = ConvertirANumero(precio)
 	Segun menu Hacer
 		1:
-			Si dato>20 y dato<=60 Entonces
-				costoFinal=costoFinal+(costoFinal*0.10)
+			Si dato > 20 Y dato <= 60 Entonces
+				costoFinal = costoFinal + (costoFinal * 0.10)
 			SiNo
 				Si dato > 60 Entonces
-					costoFinal=180000
+					costoFinal = 180000
 				Fin Si
 			Fin Si
 		2:
-			Si dato>20 y dato<=60 Entonces
-				costoFinal=costoFinal+(costoFinal*0.10)
+			Si dato > 20 Y dato <= 60 Entonces
+				costoFinal = costoFinal + (costoFinal * 0.10)
 			SiNo
 				Si dato > 60 Entonces
-					costoFinal=150000
+					costoFinal = 150000
 				Fin Si
 			Fin Si
 		3:
-			Si dato>10 y dato<=40 Entonces
-				costoFinal=costoFinal+(costoFinal*0.15)
+			Si dato > 10 Y dato <= 40 Entonces
+				costoFinal = costoFinal + (costoFinal * 0.15)
 			SiNo
 				Si dato > 40 Entonces
-					costoFinal=95000
+					costoFinal = 95000
 				Fin Si
 			Fin Si
 		4:
-			Si dato>10 y dato<=40 Entonces
-				costoFinal=costoFinal+(costoFinal*0.15)
+			Si dato > 10 Y dato <= 40 Entonces
+				costoFinal = costoFinal + (costoFinal * 0.15)
 			SiNo
 				Si dato > 40 Entonces
-					costoFinal=125000
+					costoFinal = 125000
 				Fin Si
 			Fin Si
 	Fin Segun
 FinFuncion
+
 
 // ----- VALIDAR TELÉFONO -----
 Funcion telValido <- validarTel(tel)
@@ -356,7 +387,7 @@ Funcion telValido <- validarTel(tel)
 	
 	Si Longitud(tel) >= 10 Y prefijo == "+" Entonces
 		Para i <- 1 Hasta Longitud(tel) Con Paso 1 Hacer
-			Si (Subcadena(tel, i, i)) >= "0" Y (Subcadena(tel, i, i)) <= "9" Entonces
+			Si Subcadena(tel, i, i) = "0" O Subcadena(tel, i, i) = "1" O Subcadena(tel, i, i) = "2" O Subcadena(tel, i, i) = "3" O Subcadena(tel, i, i) = "4" O Subcadena(tel, i, i) = "5" O Subcadena(tel, i, i) = "6" O Subcadena(tel, i, i) = "7" O Subcadena(tel, i, i) = "8" O Subcadena(tel, i, i) = "9" Entonces
 				contador = contador + 1
 			FinSi
 		Fin Para
@@ -373,6 +404,7 @@ Funcion telValido <- validarTel(tel)
 	FinSi
 FinFuncion
 
+
 // ----- VALIDAR DNI -----
 Funcion dniValido <- validarDNI(dni)
 	Definir dniValido Como Logico
@@ -380,7 +412,7 @@ Funcion dniValido <- validarDNI(dni)
 	
 	Si Longitud(dni) < 9 Y Longitud(dni) > 6 Entonces
 		Para i <- 1 Hasta Longitud(dni) Con Paso 1 Hacer
-			Si (Subcadena(dni, i, i)) >= "0" Y (Subcadena(dni, i, i)) <= "9" Entonces
+			Si Subcadena(dni, i, i) = "0" O Subcadena(dni, i, i) = "1" O Subcadena(dni, i, i) = "2" O Subcadena(dni, i, i) = "3" O Subcadena(dni, i, i) = "4" O Subcadena(dni, i, i) = "5" O Subcadena(dni, i, i) = "6" O Subcadena(dni, i, i) = "7" O Subcadena(dni, i, i) = "8" O Subcadena(dni, i, i) = "9" Entonces
 				contador = contador + 1
 			FinSi
 		Fin Para
@@ -397,13 +429,12 @@ Funcion dniValido <- validarDNI(dni)
 	FinSi
 FinFuncion
 
+
 SubProceso buscarPasajeroAsiento(listaPasajeros, ruta, plazasTotales, plazasDisponibles)
 	Definir asiento, i, j Como Entero
 	Definir encontrado como Logico 
 	Definir array como Texto
 	encontrado = Falso
-	
-	
 	// Creacion de un nuevo array para guardar los datos del vuelo a buscar
 	
 	Si plazasDisponibles <= 0 Entonces
@@ -448,13 +479,15 @@ SubProceso buscarPasajeroAsiento(listaPasajeros, ruta, plazasTotales, plazasDisp
 		// Busqueda
 		Escribir "Ingrese el asiento del pasajero a buscar:"
 		Leer asiento
-		
 		i=0
+		
 		Mientras i < plazasDisponibles Hacer
 			Si array[i,6] == ConvertirATexto(asiento) Entonces
+				Escribir "============================="
 				Escribir "Nombre y Apellido: ", array[i,1]
 				Escribir "Ruta: ", array[i,0]
 				Escribir "DNI: ", array[i,2]
+				Escribir "============================="
 				encontrado = Verdadero
 				i = plazasDisponibles
 			Fin Si
@@ -464,9 +497,119 @@ SubProceso buscarPasajeroAsiento(listaPasajeros, ruta, plazasTotales, plazasDisp
 		Si encontrado = Falso Entonces
 			Escribir "Asiento no encontrado."
 		Fin Si
-		
 	Fin Si
+FinSubProceso
+
+
+SubProceso buscarPasajeroNombre(lista, plazasTotales, nombreYApellido)
+	Definir i Como Entero
+	Definir encontrado como Logico 
+	encontrado = Falso
+	i=0
 	
+	Mientras i < plazasTotales Hacer
+		Si Mayusculas(nombreYapellido) == Mayusculas(lista[i,1]) Entonces
+			Escribir "Nombre y Apellido: ", lista[i,1]
+			Escribir "Ruta: ", lista[i,0]
+			Escribir "DNI: ", lista[i,2]
+			encontrado = Verdadero
+			i = plazasTotales
+		Fin Si
+		i = i + 1
+	FinMientras
+	Si encontrado = Falso Entonces
+		Escribir "Persona no encontrada."
+	Fin Si
+FinSubProceso
+
+SubProceso ordenarPorAsiento(listaPasajeros, ruta, plazasTotales, plazasDisponibles, ordenarpor)
+	Definir array como Texto
+	Definir i, j Como Entero
+	Definir aux Como Caracter
+	Definir posMenor Como Entero
+	
+	
+	// Creacion de un nuevo array para guardar los datos del vuelo a ordenar
+	
+	Si plazasDisponibles <= 0 Entonces
+		Escribir "No hay pasajes vendidos en esta ruta."
+	SiNo
+		Dimension array[plazasDisponibles,8]
+		Segun ruta Hacer
+			1:
+				Para i=0 Hasta plazasTotales-1 Hacer
+					Para j=0 Hasta 7 Con Paso 1 Hacer
+						Si listaPasajeros[i,0] == "Buenos Aires - Bariloche" Entonces
+							array[i,j] = listaPasajeros[i,j]
+						Fin Si
+					Fin Para
+				Fin Para
+			2:
+				Para i=0 Hasta plazasTotales-1 Hacer
+					Para j=0 Hasta 7 Con Paso 1 Hacer
+						Si listaPasajeros[i,0] == " Bueno Aires - Salta" Entonces
+							array[i,j] = listaPasajeros[i,j]
+						Fin Si
+					Fin Para
+				Fin Para
+			3:
+				Para i=0 Hasta plazasTotales-1 Hacer
+					Para j=0 Hasta 7 Con Paso 1 Hacer
+						Si listaPasajeros[i,0] == "Rosario - Buenos Aires" Entonces
+							array[i,j] = listaPasajeros[i,j]
+						Fin Si
+					Fin Para
+				Fin Para
+			4:
+				Para i=0 Hasta plazasTotales-1 Hacer
+					Para j=0 Hasta 7 Con Paso 1 Hacer
+						Si listaPasajeros[i,0] == "Mar Del Plata - Mendoza" Entonces
+							array[i,j] = listaPasajeros[i,j]
+						Fin Si
+					Fin Para
+				Fin Para
+		Fin Segun
+		
+		// ORDENAMIENTO
+		
+		Si ordenarpor == "A" Entonces
+			// ORDEN ASCENDENTE
+			Para i <- 0 Hasta plazasDisponibles-2
+				posMenor = i
+				Para j <- i+1 Hasta plazasDisponibles-1
+					Si array[posMenor,6] > array[j,6] Entonces
+						posMenor = j
+					Fin Si
+				Fin Para
+				aux = array[i, 6]
+				array[i, 6] = array[posMenor, 6]
+				array[posMenor, 6] = aux
+			FinPara
+		SiNo
+			// ORDEN DESCENDENTE
+			Para i <- 0 Hasta plazasDisponibles-2
+				posMenor = i
+				Para j <- i+1 Hasta plazasDisponibles-1
+					Si array[posMenor,6] < array[j,6] Entonces
+						posMenor = j
+					Fin Si
+				Fin Para
+				aux = array[i, 6]
+				array[i, 6] = array[posMenor, 6]
+				array[posMenor, 6] = aux
+			FinPara
+		Fin Si
+		
+		// Mostrando la lista ordenada
+		Escribir ""
+		Para i=0 Hasta plazasDisponibles-1 Hacer
+			Para j=0 Hasta 7 Con Paso 1 Hacer
+				Escribir Sin Saltar array[i, j], " | "
+			Fin Para
+			Escribir ""
+		Fin Para
+		Escribir ""
+	FinSi	
 FinSubProceso
 
 
