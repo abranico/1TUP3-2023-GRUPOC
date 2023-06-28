@@ -561,7 +561,7 @@ FinSubProceso
 SubProceso ordenarPorAsiento(listaPasajeros, ruta, plazasTotales, plazasDisponibles, ordenarpor)
 	Definir array como Texto
 	Definir i, j Como Entero
-	Definir aux Como Caracter
+	Definir auxNombre, AuxDni, auxTel, auxEquipaje, auxNumPasajero, auxAsiento, auxCosto Como Caracter
 	Definir posMenor Como Entero
 	
 	
@@ -617,9 +617,29 @@ SubProceso ordenarPorAsiento(listaPasajeros, ruta, plazasTotales, plazasDisponib
 						posMenor = j
 					Fin Si
 				Fin Para
-				aux = array[i, 6]
+				auxNombre = array[i, 1]
+				AuxDni = array[i, 2]
+				auxTel = array[i, 3]
+				auxEquipaje = array[i, 4]
+				auxNumPasajero = array[i, 5]
+				auxAsiento = array[i, 6]
+				auxCosto = array[i, 7]
+				
+				array[i, 1] = array[posMenor, 1]
+				array[i, 2] = array[posMenor, 2]
+				array[i, 3] = array[posMenor, 3]
+				array[i, 4] = array[posMenor, 4]
+				array[i, 5] = array[posMenor, 5]
 				array[i, 6] = array[posMenor, 6]
-				array[posMenor, 6] = aux
+				array[i, 7] = array[posMenor, 7]
+				
+				array[posMenor, 1] = auxNombre
+				array[posMenor, 2] = AuxDni
+				array[posMenor, 3] = auxTel
+				array[posMenor, 4] = auxEquipaje
+				array[posMenor, 5] = auxNumPasajero
+				array[posMenor, 6] = auxAsiento
+				array[posMenor, 7] = auxCosto
 			FinPara
 		SiNo
 			// ORDEN DESCENDENTE
@@ -630,9 +650,29 @@ SubProceso ordenarPorAsiento(listaPasajeros, ruta, plazasTotales, plazasDisponib
 						posMenor = j
 					Fin Si
 				Fin Para
-				aux = array[i, 6]
+				auxNombre = array[i, 1]
+				AuxDni = array[i, 2]
+				auxTel = array[i, 3]
+				auxEquipaje = array[i, 4]
+				auxNumPasajero = array[i, 5]
+				auxAsiento = array[i, 6]
+				auxCosto = array[i, 7]
+				
+				array[i, 1] = array[posMenor, 1]
+				array[i, 2] = array[posMenor, 2]
+				array[i, 3] = array[posMenor, 3]
+				array[i, 4] = array[posMenor, 4]
+				array[i, 5] = array[posMenor, 5]
 				array[i, 6] = array[posMenor, 6]
-				array[posMenor, 6] = aux
+				array[i, 7] = array[posMenor, 7]
+				
+				array[posMenor, 1] = auxNombre
+				array[posMenor, 2] = AuxDni
+				array[posMenor, 3] = auxTel
+				array[posMenor, 4] = auxEquipaje
+				array[posMenor, 5] = auxNumPasajero
+				array[posMenor, 6] = auxAsiento
+				array[posMenor, 7] = auxCosto
 			FinPara
 		Fin Si
 		
