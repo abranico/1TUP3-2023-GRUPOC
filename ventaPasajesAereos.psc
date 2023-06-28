@@ -245,19 +245,33 @@ SubProceso cargaVuelos(listaVuelos) // RUTA - PLAZAS DISPONIBLES - PRECIO
 FinSubProceso
 
 SubProceso cargarPasajeros(vuelo, costo, plazaNro, lista, plazasTotales)
-	
 	Definir nombrePasajero, apellidoPasajero, nombreYApellido, dniPasajero, telPasajero, resumenPasajero  Como Texto
 	Definir nroPasajeroFrecuente Como Texto
 	Definir costoFinal Como Real
 	Definir costoPasajero, validarEquipaje, numPasajero, asiento como Texto
-	Definir telValido, dniValido Como Logico
+	Definir telValido, dniValido, cadenaValido Como Logico
+	
 	costoFinal=costo
 	
 	// ----- Carga de NOMBRE y APELLIDO -----
-	Escribir "Ingresar nombre del pasajero."
-	Leer nombrePasajero
-	Escribir "Ingresar apellido del pasajero."
-	Leer apellidoPasajero
+	Repetir
+		Escribir "Ingresar nombre del pasajero."
+		Leer nombrePasajero
+		cadenaValido <- validarCadena(nombrePasajero)
+		Si cadenaValido == Falso Entonces
+			Escribir "Nombre invalido"
+		Fin Si
+	Mientras Que cadenaValido == Falso
+	
+	Repetir
+		Escribir "Ingresar apellido del pasajero."
+		Leer apellidoPasajero
+		cadenaValido <- validarCadena(apellidoPasajero)
+		Si cadenaValido == Falso Entonces
+			Escribir "Apellido invalido"
+		Fin Si
+	Mientras Que cadenaValido == Falso
+	
 	nombreYApellido = Concatenar(nombrePasajero," ")
 	nombreYApellido = Concatenar(nombreYApellido, apellidoPasajero)
 	
@@ -409,6 +423,21 @@ Funcion telValido <- validarTel(tel)
 		Escribir "Teléfono inválido."
 		telValido = Falso
 	FinSi
+FinFuncion
+
+Funcion cadenaValido <- validarCadena(cadna)
+	Definir i Como Entero
+	Definir cadenaValido Como Logico
+	Definir caracterCadena Como Caracter
+	
+		cadenaValido = Verdadero
+		
+		Para i=0 Hasta Longitud(cadna) Hacer
+			caracterCadena = SubCadena(cadna, i, i)
+			Si caracterCadena == "0" O caracterCadena == "1" O caracterCadena == "2" O caracterCadena == "3" O caracterCadena == "4" O caracterCadena == "5" O caracterCadena == "6" O caracterCadena == "7" O caracterCadena == "8" O caracterCadena == "9" Entonces
+				cadenaValido = Falso
+			Fin Si
+		Fin Para
 FinFuncion
 
 
