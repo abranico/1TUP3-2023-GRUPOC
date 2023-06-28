@@ -184,37 +184,36 @@ Proceso ventaPasajesAereos
 							De Otro Modo:
 								Escribir "Opción inexistente."
 						Fin Segun
-					Hasta Que eleccionVuelo = 1 O eleccionVuelo = 2 O eleccionVuelo = 3 O eleccionVuelo = 4
+				Hasta Que eleccionVuelo = 1 O eleccionVuelo = 2 O eleccionVuelo = 3 O eleccionVuelo = 4
 				
 				// ----- FIN ORDENAR PASAJE POR ASIENTO -----
 			"5":
+				// ----- LISTADO -----
 				Repetir
-					Escribir "a. Cantidad de pasajes vendido por ruta aérea."
-					Escribir "b. Porcentaje de ventas por ruta aérea."
-					Leer opcionMenu5
-					opcionMenu5 = Mayusculas(opcionMenu5)
-					Segun opcionMenu5 Hacer
-						"A": 
-							Escribir "Cantidad de pasajes vendido en ruta 1:  " ,  plazasDsiponibles1
-							Escribir "Cantidad de pasajes vendido en ruta 2:  " ,  plazasDsiponibles2
-							Escribir "Cantidad de pasajes vendido en ruta 3:  " ,  plazasDsiponibles3
-							Escribir "Cantidad de pasajes vendido en ruta 4:  " ,  plazasDsiponibles4
-						"B":
-							porcentajeVentasRuta1 = (plazasDsiponibles1/120) * 100;
-							Escribir "El porcentaje de ventas de la ruta 1 es: " , porcentajeVentasRuta1 "%"
-							porcentajeVentasRuta2 = (plazasDsiponibles2/120) * 100;
-							Escribir "El porcentaje de ventas de la ruta 2 es: " , porcentajeVentasRuta2 "%"
-							porcentajeVentasRuta3 = (plazasDsiponibles3/80) * 100;
-							Escribir "El porcentaje de ventas de la ruta 3 es: " , porcentajeVentasRuta3 "%"
-							porcentajeVentasRuta4 = (plazasDsiponibles4/80) * 100;
-							Escribir "El porcentaje de ventas de la ruta 4 es: " , porcentajeVentasRuta4 "%"
-							
-							
-							
-						De Otro Modo:
-							Escribir "Opción inválida."
+				Escribir "a. Cantidad de pasajes vendido por ruta aérea."
+				Escribir "b. Porcentaje de ventas por ruta aérea."
+				Leer opcionMenu5
+				opcionMenu5 = Mayusculas(opcionMenu5)
+				Segun opcionMenu5 Hacer
+					"A": 
+						Escribir "Cantidad de pasajes vendido en ruta 1:  " ,  plazasDsiponibles1
+						Escribir "Cantidad de pasajes vendido en ruta 2:  " ,  plazasDsiponibles2
+						Escribir "Cantidad de pasajes vendido en ruta 3:  " ,  plazasDsiponibles3
+						Escribir "Cantidad de pasajes vendido en ruta 4:  " ,  plazasDsiponibles4
+					"B":
+						porcentajeVentasRuta1 = (plazasDsiponibles1/120) * 100;
+						Escribir "El porcentaje de ventas de la ruta ",listaVuelos[0,0]," es: " , porcentajeVentasRuta1 "%"
+						porcentajeVentasRuta2 = (plazasDsiponibles2/120) * 100;
+						Escribir "El porcentaje de ventas de la ruta ",listaVuelos[1,0]," es: " , porcentajeVentasRuta2 "%"
+						porcentajeVentasRuta3 = (plazasDsiponibles3/80) * 100;
+						Escribir "El porcentaje de ventas de la ruta ",listaVuelos[2,0]," es: " , porcentajeVentasRuta3 "%"
+						porcentajeVentasRuta4 = (plazasDsiponibles4/80) * 100;
+						Escribir "El porcentaje de ventas de la ruta ",listaVuelos[3,0]," es: " , porcentajeVentasRuta4 "%"
+					De Otro Modo:
+						Escribir "Opción inválida."
 					Fin Segun
 				Mientras Que opcionMenu5 <> "A" Y opcionMenu5 <> "B"
+				// ----- FIN LISTADO -----
 			"SALIR": 
 				Escribir "Saliendo..."
 			De Otro Modo:
@@ -224,8 +223,11 @@ Proceso ventaPasajesAereos
 	// ----- FIN MENU -----
 FinProceso
 
+
 // ----- FUNCIONES Y SUBPROCESOS: -----
 
+
+// ----- CARGA DE VUELOS -----
 SubProceso cargaVuelos(listaVuelos) // RUTA - PLAZAS DISPONIBLES - PRECIO
 	listaVuelos[0,0] = "Buenos Aires - Bariloche"
 	listaVuelos[0,1] = "120"
@@ -336,6 +338,7 @@ SubProceso cargarPasajeros(vuelo, costo, plazaNro, lista, plazasTotales)
 	Escribir "Costo pasaje: $", costoFinal
 	Escribir "============================="
 FinSubProceso
+// ----- FIN CARGA DE VUELOS -----
 
 // ----- VALIDAR PLAZA -----
 Funcion validacion <- validarPlaza(dato, vuelo) 
@@ -346,11 +349,13 @@ Funcion validacion <- validarPlaza(dato, vuelo)
 		validacion = Falso
 	Fin Si
 FinFuncion
+// ----- FIN VALIDAR PLAZA -----
 
 // ----- GENERAR COSTO DE LA VENTA -----
 Funcion costoFinal <- costoPasaje1(dato, precio, menu)
 	Definir costoFinal Como Real
 	costoFinal = ConvertirANumero(precio)
+	
 	Segun menu Hacer
 		1:
 			
@@ -386,8 +391,8 @@ Funcion costoFinal <- costoPasaje1(dato, precio, menu)
 				Fin Si
 			Fin Si
 	Fin Segun
-	
 FinFuncion
+// ----- FIN GENERAR COSTO DE LA VENTA -----
 
 
 // ----- VALIDAR TELÉFONO -----
@@ -397,8 +402,6 @@ Funcion telValido <- validarTel(tel)
 	Definir prefijo como Texto
 	prefijo = Subcadena(tel, 0, 0)
 	contador = 0
-	
-	
 	
 	Si Longitud(tel) >= 10 Y prefijo == "+" Entonces
 		definir digito como texto
@@ -410,9 +413,9 @@ Funcion telValido <- validarTel(tel)
 			SiNo
 				contador=contador+1
 			FinSi
-			
 		Fin Para
-		si contador > 10 y contador<14 Entonces
+		
+		Si contador > 10 y contador<14 Entonces
 			Escribir "Teléfono valido."
 			telValido = Verdadero
 		SiNo
@@ -424,7 +427,9 @@ Funcion telValido <- validarTel(tel)
 		telValido = Falso
 	FinSi
 FinFuncion
+// ----- FIN VALIDAR TELÉFONO -----
 
+// ----- VALIDAR CADENA (NOMBRE Y APELLIDO) -----
 Funcion cadenaValido <- validarCadena(cadna)
 	Definir i Como Entero
 	Definir cadenaValido Como Logico
@@ -439,7 +444,7 @@ Funcion cadenaValido <- validarCadena(cadna)
 			Fin Si
 		Fin Para
 FinFuncion
-
+// ----- FIN VALIDAR CADENA (NOMBRE Y APELLIDO) -----
 
 // ----- VALIDAR DNI -----
 Funcion dniValido <- validarDNI(dni)
@@ -464,8 +469,9 @@ Funcion dniValido <- validarDNI(dni)
 		dniValido = Falso
 	FinSi
 FinFuncion
+// ----- FIN VALIDAR DNI -----
 
-
+// ----- BUSCAR PASAJERO POR ASIENTO -----
 SubProceso buscarPasajeroAsiento(listaPasajeros, ruta, plazasTotales, plazasDisponibles)
 	Definir asiento, i, j Como Entero
 	Definir encontrado como Logico 
@@ -476,6 +482,7 @@ SubProceso buscarPasajeroAsiento(listaPasajeros, ruta, plazasTotales, plazasDisp
 	Si plazasDisponibles <= 0 Entonces
 		Escribir "No hay pasajes vendidos en esta ruta."
 	SiNo
+		// Creo array del tamaño de las plazas disponibles segun la ruta seleccionada
 		Dimension array[plazasDisponibles,8]
 		Segun ruta Hacer
 			1:
@@ -535,8 +542,9 @@ SubProceso buscarPasajeroAsiento(listaPasajeros, ruta, plazasTotales, plazasDisp
 		Fin Si
 	Fin Si
 FinSubProceso
+// ----- FIN BUSCAR PASAJERO POR ASIENTO -----
 
-
+// ----- BUSCAR PASAJERO POR NOMBRE Y APELLIDO -----
 SubProceso buscarPasajeroNombre(lista, plazasTotales, nombreYApellido)
 	Definir i Como Entero
 	Definir encontrado como Logico 
@@ -557,7 +565,9 @@ SubProceso buscarPasajeroNombre(lista, plazasTotales, nombreYApellido)
 		Escribir "Persona no encontrada."
 	Fin Si
 FinSubProceso
+// ----- FIN BUSCAR PASAJERO POR NOMBRE Y APELLIDO -----
 
+// ----- ORDENAR POR ASIENTO -----
 SubProceso ordenarPorAsiento(listaPasajeros, ruta, plazasTotales, plazasDisponibles, ordenarpor)
 	Definir array como Texto
 	Definir i, j Como Entero
@@ -687,5 +697,4 @@ SubProceso ordenarPorAsiento(listaPasajeros, ruta, plazasTotales, plazasDisponib
 		Escribir ""
 	FinSi	
 FinSubProceso
-
-
+// ----- ORDENAR POR ASIENTO -----
