@@ -2,11 +2,8 @@ Proceso ventaPasajesAereos
 	Definir opcionMenu, opcionMenu4, opcionMenu5, nombreBusqueda, apellidoBusqueda, nombreYApellidoBusqueda Como Texto
 	Definir eleccionVuelo, plazasDsiponibles1, plazasDsiponibles2, plazasDsiponibles3, plazasDsiponibles4, i, j, plazasTotales Como Entero
 	Definir  numPasajero, numAsiento Como Entero
-<<<<<<< HEAD
 	definir costoPasaje, costo, porcentajeVentasRuta1, porcentajeVentasRuta2, porcentajeVentasRuta3, porcentajeVentasRuta4 Como Real
-=======
-	Definir costoPasaje, costo Como Real
->>>>>>> abbe31eea7d1483fee8f234febede842bc04662f
+	
 	Definir validacion, valido, validarEquipaje, dniValido, telValido Como Logico
 	
 	// ----- Rutas aéreas disponibles a la venta -----
@@ -285,7 +282,7 @@ SubProceso cargarPasajeros(vuelo, costo, plazaNro, lista, plazasTotales)
 		validarEquipaje = Mayusculas(validarEquipaje)
 	Mientras Que validarEquipaje <> "F" Y validarEquipaje <> "V"
 	Si validarEquipaje == "V" Entonces
-		costoFinal = costoFinal * 1.5 // Costo adicional por equipaje en la bodega
+		costoFinal = costoFinal + (costoFinal*0.05) // Costo adicional por equipaje en la bodega
 		validarEquipaje = "Verdadero"
 	SiNo
 		validarEquipaje = "Falso"
@@ -293,7 +290,7 @@ SubProceso cargarPasajeros(vuelo, costo, plazaNro, lista, plazasTotales)
 	
 	// ----- Carga del numero de pasajero frecuente -----
 	Repetir
-		Escribir "Ingresar el y número pasajero frecuente. (4 digitos)"
+		Escribir "Ingresar el número pasajero frecuente. (4 digitos)"
 		Leer numPasajero
 	Mientras Que Longitud(numPasajero)<>4
 	
@@ -342,6 +339,7 @@ Funcion costoFinal <- costoPasaje1(dato, precio, menu)
 	costoFinal = ConvertirANumero(precio)
 	Segun menu Hacer
 		1:
+			
 			Si dato > 20 Y dato <= 60 Entonces
 				costoFinal = costoFinal + (costoFinal * 0.10)
 			SiNo
@@ -374,6 +372,7 @@ Funcion costoFinal <- costoPasaje1(dato, precio, menu)
 				Fin Si
 			Fin Si
 	Fin Segun
+	
 FinFuncion
 
 
@@ -385,13 +384,21 @@ Funcion telValido <- validarTel(tel)
 	prefijo = Subcadena(tel, 0, 0)
 	contador = 0
 	
+	
+	
 	Si Longitud(tel) >= 10 Y prefijo == "+" Entonces
+		definir digito como texto
+		
 		Para i <- 1 Hasta Longitud(tel) Con Paso 1 Hacer
-			Si Subcadena(tel, i, i) = "0" O Subcadena(tel, i, i) = "1" O Subcadena(tel, i, i) = "2" O Subcadena(tel, i, i) = "3" O Subcadena(tel, i, i) = "4" O Subcadena(tel, i, i) = "5" O Subcadena(tel, i, i) = "6" O Subcadena(tel, i, i) = "7" O Subcadena(tel, i, i) = "8" O Subcadena(tel, i, i) = "9" Entonces
-				contador = contador + 1
+			digito=Subcadena(tel,i,i)
+			Si digito <> "0" y digito <> "1" y digito <> "2" y digito <> "3" y digito <> "4" y digito <> "5" y digito <> "6" y digito <> "7" y digito <> "8" y digito <> "9" y digito <>"+" Entonces
+				contador = contador - 1
+			SiNo
+				contador=contador+1
 			FinSi
+			
 		Fin Para
-		si contador > 10 Entonces
+		si contador > 10 y contador<14 Entonces
 			Escribir "Teléfono valido."
 			telValido = Verdadero
 		SiNo
